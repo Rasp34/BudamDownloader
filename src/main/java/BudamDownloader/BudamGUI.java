@@ -1,6 +1,7 @@
 package BudamDownloader;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,20 +18,25 @@ public class BudamGUI {
 
 
     public BudamGUI() {
-        downloadButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+
+        JFrame mainFrame = new JFrame("Budam Downloader");
+
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        BudamGUI budamGUI = new BudamGUI();
+        mainFrame.setSize(new Dimension(270, 130));
+        mainFrame.setResizable(false);
+        mainFrame.setContentPane(budamGUI.panel);
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        mainFrame.pack();
+        mainFrame.setVisible(true);
+
+
     }
+
 }

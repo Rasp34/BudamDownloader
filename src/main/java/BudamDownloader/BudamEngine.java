@@ -7,7 +7,8 @@ public class BudamEngine {
 		GUIBudam generalGUI = new GUIBudam();
 		DownloaderCore downloaderCore = new DownloaderCore(generalGUI);
 		generalGUI.buttonDownloadListener.setDCore(downloaderCore);
-		
+
+
 	}
 	
 
