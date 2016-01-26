@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  *
@@ -18,6 +19,53 @@ public class BudamGUI {
 
 
     public BudamGUI() {
+
+        downloadButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Action Push");
+//                Thread.currentThread().setName("TwoThread");
+                Thread threadExecution = new Thread(new Runnable() {
+                    public void run() {
+
+                        buttonDisable();
+                        int count = 0;
+                        for (int i = 0; i < 10; i++) {
+                            count += i;
+                            System.out.println(count);
+                        }
+                        buttonDisable();
+                        for (int i = 0; i < 5; i++) {
+                            count -= i;
+                            System.out.println("minus " + count);
+                        }
+
+                    }
+                });
+                threadExecution.setName("ThreadCount");
+                threadExecution.start();
+            }
+        });
+    }
+
+    private void buttonDisable() {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+
+                downloadButton.setEnabled(false);
+            }
+        });
+//        SwingUtilities.invokeAndWait(new Runnable() {
+//            public void run() {
+//
+//            }
+//        });
+
 
     }
 
