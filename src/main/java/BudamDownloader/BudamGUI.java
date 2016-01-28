@@ -18,6 +18,9 @@ public class BudamGUI {
     private JLabel statLable;
 
 
+    /**
+     *  Constructor
+     */
     public BudamGUI() {
 
         downloadButton.addActionListener(new ActionListener() {
@@ -32,17 +35,16 @@ public class BudamGUI {
                 Thread threadExecution = new Thread(new Runnable() {
                     public void run() {
 
-                        buttonDisable();
-                        int count = 0;
-                        for (int i = 0; i < 10; i++) {
-                            count += i;
-                            System.out.println(count);
-                        }
-                        buttonDisable();
-                        for (int i = 0; i < 5; i++) {
-                            count -= i;
-                            System.out.println("minus " + count);
-                        }
+                        try {
+//                        Отключим интерфейс
+                            buttonDisable(true);
+//                        Запустим ядро загрузки
+                            new DownloaderCore(podcastFormattedTextField.getText());
+                            buttonDisable(false);
+
+                        }catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
 
                     }
                 });
@@ -52,37 +54,48 @@ public class BudamGUI {
         });
     }
 
-    private void buttonDisable() {
+    private void buttonDisable(boolean setEnable) throws InvocationTargetException, InterruptedException {
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-
-                downloadButton.setEnabled(false);
-            }
-        });
-//        SwingUtilities.invokeAndWait(new Runnable() {
-//            public void run() {
-//
-//            }
-//        });
-
+        if (setEnable) {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    downloadButton.setEnabled(false);
+                }
+            });
+        }else {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    downloadButton.setEnabled(true);
+                }
+            });
+        }
 
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    /**
+     * ------------------------------------------------------------------------------
+     *      MAIN METHOD
+     * ------------------------------------------------------------------------------
+     * @param args
+     * @throws ClassNotFoundException
+     * @throws UnsupportedLookAndFeelException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+        public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
-        JFrame mainFrame = new JFrame("Budam Downloader");
+            JFrame mainFrame = new JFrame("Budam Downloader");
 
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        BudamGUI budamGUI = new BudamGUI();
-        mainFrame.setSize(new Dimension(270, 130));
-        mainFrame.setResizable(false);
-        mainFrame.setContentPane(budamGUI.panel);
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        mainFrame.pack();
-        mainFrame.setVisible(true);
+            BudamGUI budamGUI = new BudamGUI();
+            mainFrame.setSize(new Dimension(270, 130));
+            mainFrame.setResizable(false);
+            mainFrame.setContentPane(budamGUI.panel);
+            mainFrame.setLocationRelativeTo(null);
+            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //        mainFrame.pack();
+            mainFrame.setVisible(true);
 
 
     }
