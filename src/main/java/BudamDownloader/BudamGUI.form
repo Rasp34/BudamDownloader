@@ -17,9 +17,15 @@
           </grid>
         </constraints>
         <properties>
+          <columns value="3"/>
           <font size="12"/>
-          <text value="past number"/>
+          <horizontalAlignment value="0"/>
+          <text value=""/>
         </properties>
+        <clientProperties>
+          <caretAspectRatio class="java.lang.Double" value="0.0"/>
+          <caretWidth class="java.lang.Integer" value="0"/>
+        </clientProperties>
       </component>
       <component id="f3ba8" class="javax.swing.JLabel" binding="statLable">
         <constraints>
